@@ -1,0 +1,104 @@
+Mission description before launch
+Tips menu before beginning
+    Tips can be cycled through
+Narrative voice
+    Robot lady
+    Gives objectives
+All missions are on a terrain
+All missions have a set of objectives which must be completed to win
+    - Could hypothetically be "eliminate all non-allied factions"
+Mission objectives are always available in options menu
+Fog of war shows exposed area
+
+Overlay:
+Minimap in bottom right
+Entity options in bottom right
+Menu button next to Entity options
+Readout in bottom center
+
+Resources:
+Minerals:
+    Mined from actual tiles
+        Tile graphic relates to quantity remaining
+Vespene:
+    Retrieved from refinery
+Population:
+    Ratio of usage to current supply depots
+    Must be < 1.0 for new units to be built which have pop requirement
+    Can be sabotaged with supply depot destruction
+
+Identifiable terrain features:
+    Walls/Levels
+    Minerals
+    Vespene Gas
+Identifiable faction control:
+    Buildings
+    Units
+
+Identified buildings:
+    Command Center
+    Supply Depot
+
+Command Center abilities:
+    Create SCV
+    Set rally point
+    Can receive resources from SCVs
+
+Supply Depot provides population support
+    Robot voice lets you know when you don't have enough
+
+Refinery abilities:
+    Creates refined vespene (from limited raw vespene from source)
+    Can hold one SCV at a time while gathering gas
+
+
+Identified units:
+    SCV
+    Marine
+Select with left mouse, right click to command
+Universal unit abilities:
+    Move
+    Hold Position
+    Attack
+
+
+SCV abilities:
+    60 HP
+    Mine crystal
+    Construct
+        Gives list of potential buildings
+        Only one SCV can build at a time
+    Mine vespene
+    Can carry resource
+
+M := Mineral
+P := Supply Depot
+V := Vespene
+T := Game Seconds
+
+Units have a cost:
+    SCV: 50 M 1 P 20 T
+
+Buildings have a cost:
+    Supply Depot: 100 M, 40 T
+        + 8 P
+    Vespene Gas Refinery: 100 M
+        - Must be built on Vespene geyser
+    Command Center: 400 M 120 T
+        + 10 P
+
+Mission Success procedure:
+See if requirements are met
+    (Ex. Still have agency on map, like units and buildings; key entities are still alive, etc.)
+    True:
+        Check objective list
+        If all complete:
+            Succeed
+        Else:
+            Mission ongoing
+    False:
+        Fail mission
+
+Procedure suspicions:
+Everything that can flag an objective emits a signal
+Signal updates record of mission state and runs success check
