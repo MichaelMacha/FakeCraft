@@ -1,0 +1,334 @@
+[gd_scene load_steps=36 format=3 uid="uid://ck4jnk1x4gnvi"]
+
+[ext_resource type="Script" path="res://addons/interpolated_camera_3d/interpolated_camera_3d.gd" id="1_3cjf3"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="1_a503m"]
+[ext_resource type="Script" path="res://ui.gd" id="3_vm6ea"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_5ah6r"]
+vertices = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, -20)
+polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(1, 3, 2)]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d0sa3"]
+frequency = 0.168
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mwi1h"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_d0sa3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48rxh"]
+albedo_color = Color(0.47788, 0.47788, 0.47788, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_mwi1h")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_13r0d"]
+material = SubResource("StandardMaterial3D_48rxh")
+size = Vector2(40, 40)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y4uyo"]
+data = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, 20, -20, 0, -20, 20, 0, -20)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pl088"]
+
+[sub_resource type="Sky" id="Sky_60xij"]
+sky_material = SubResource("ProceduralSkyMaterial_pl088")
+
+[sub_resource type="Environment" id="Environment_0owma"]
+background_mode = 2
+sky = SubResource("Sky_60xij")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nfgwg"]
+size = Vector2(25, 25)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nrrrg"]
+size = Vector2(200, 200)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wcc1n"]
+size = Vector2(150, 150)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kmp71"]
+size = Vector2(100, 100)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s72gl"]
+size = Vector2(150, 150)
+
+[sub_resource type="InputEventKey" id="InputEventKey_kuvx1"]
+device = -1
+keycode = 4194445
+unicode = 55
+
+[sub_resource type="Shortcut" id="Shortcut_ry66c"]
+events = [SubResource("InputEventKey_kuvx1")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_jdpjk"]
+device = -1
+keycode = 4194446
+unicode = 56
+
+[sub_resource type="Shortcut" id="Shortcut_28edx"]
+events = [SubResource("InputEventKey_jdpjk")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_rdfdr"]
+device = -1
+keycode = 4194447
+unicode = 57
+
+[sub_resource type="Shortcut" id="Shortcut_csdhb"]
+events = [SubResource("InputEventKey_rdfdr")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ysppr"]
+device = -1
+keycode = 4194442
+unicode = 52
+
+[sub_resource type="Shortcut" id="Shortcut_ljy4q"]
+events = [SubResource("InputEventKey_ysppr")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_l6shs"]
+device = -1
+keycode = 4194443
+unicode = 53
+
+[sub_resource type="Shortcut" id="Shortcut_pka3h"]
+events = [SubResource("InputEventKey_l6shs")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_qdqx4"]
+device = -1
+keycode = 4194444
+unicode = 54
+
+[sub_resource type="Shortcut" id="Shortcut_7odp4"]
+events = [SubResource("InputEventKey_qdqx4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_eevx4"]
+device = -1
+keycode = 4194439
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_j0asl"]
+events = [SubResource("InputEventKey_eevx4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_bphrr"]
+device = -1
+keycode = 4194440
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_pn8x5"]
+events = [SubResource("InputEventKey_bphrr")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_efj7d"]
+device = -1
+keycode = 4194441
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_w3cex"]
+events = [SubResource("InputEventKey_efj7d")]
+
+[node name="Map" type="Node3D"]
+
+[node name="Level Floor" type="StaticBody3D" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Level Floor"]
+navigation_mesh = SubResource("NavigationMesh_5ah6r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level Floor"]
+mesh = SubResource("PlaneMesh_13r0d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level Floor"]
+shape = SubResource("ConcavePolygonShape3D_y4uyo")
+
+[node name="Global" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Global"]
+environment = SubResource("Environment_0owma")
+
+[node name="Sun" type="DirectionalLight3D" parent="Global"]
+transform = Transform3D(0.993876, 0.0112125, 0.109927, -0.110498, 0.100852, 0.988746, 0, -0.994838, 0.101473, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Global"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 8, 0)
+script = ExtResource("1_a503m")
+speed = 15.0
+
+[node name="InterpolatedCamera3D" type="Camera3D" parent="Global" node_paths=PackedStringArray("target")]
+current = true
+script = ExtResource("1_3cjf3")
+target = NodePath("../Camera3D")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_vm6ea")
+
+[node name="Resources" type="HBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Minerals" type="HBoxContainer" parent="UI/Resources"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Resources/Minerals"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_nfgwg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Resources/Minerals"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "100
+"
+fit_content = true
+
+[node name="Gas" type="HBoxContainer" parent="UI/Resources"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Resources/Gas"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_nfgwg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Resources/Gas"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "100
+"
+fit_content = true
+
+[node name="Pop" type="HBoxContainer" parent="UI/Resources"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Resources/Pop"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_nfgwg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Resources/Pop"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "10/10"
+fit_content = true
+
+[node name="HUD" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -537.0
+offset_top = -250.0
+offset_right = 537.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(521.266, 250.141)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD"]
+layout_mode = 2
+
+[node name="Map" type="TextureRect" parent="UI/HUD/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_nrrrg")
+
+[node name="Readout" type="HBoxContainer" parent="UI/HUD/HBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/HBoxContainer/Readout"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_wcc1n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/HBoxContainer/Readout"]
+layout_mode = 2
+
+[node name="Descriptor" type="RichTextLabel" parent="UI/HUD/HBoxContainer/Readout/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Descriptor for Unit"
+fit_content = true
+scroll_active = false
+
+[node name="Stats" type="HBoxContainer" parent="UI/HUD/HBoxContainer/Readout/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/HBoxContainer/Readout/VBoxContainer/Stats"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_kmp71")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/HUD/HBoxContainer/Readout/VBoxContainer/Stats"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_kmp71")
+
+[node name="TextureRect3" type="TextureRect" parent="UI/HUD/HBoxContainer/Readout/VBoxContainer/Stats"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_kmp71")
+
+[node name="Menu" type="TextureRect" parent="UI/HUD/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_s72gl")
+
+[node name="Options" type="GridContainer" parent="UI/HUD/HBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Button7" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_ry66c")
+text = "7"
+
+[node name="Button8" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_28edx")
+text = "8"
+
+[node name="Button9" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_csdhb")
+text = "9"
+
+[node name="Button4" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_ljy4q")
+text = "4"
+
+[node name="Button5" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_pka3h")
+text = "5"
+
+[node name="Button6" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_7odp4")
+text = "6"
+
+[node name="Button1" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_j0asl")
+text = "1"
+
+[node name="Button2" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_pn8x5")
+text = "2"
+
+[node name="Button3" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+custom_minimum_size = Vector2(83, 83)
+layout_mode = 2
+shortcut = SubResource("Shortcut_w3cex")
+text = "3
+"
