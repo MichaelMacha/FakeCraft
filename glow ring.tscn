@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0ybihm5n4b5p"]
+
+[ext_resource type="PackedScene" uid="uid://b4nuoglp2gwl6" path="res://disc.glb" id="1_huor8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0os72"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[node name="disc" instance=ExtResource("1_huor8")]
+
+[node name="Circle" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0os72")

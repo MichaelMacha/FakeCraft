@@ -1,8 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://ck4jnk1x4gnvi"]
+[gd_scene load_steps=37 format=3 uid="uid://ck4jnk1x4gnvi"]
 
 [ext_resource type="Script" path="res://addons/interpolated_camera_3d/interpolated_camera_3d.gd" id="1_3cjf3"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="1_a503m"]
 [ext_resource type="Script" path="res://ui.gd" id="3_vm6ea"]
+[ext_resource type="PackedScene" uid="uid://lhvj5hnos8l4" path="res://unit.tscn" id="4_o6v8m"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_5ah6r"]
 vertices = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, -20)
@@ -24,8 +25,7 @@ normal_texture = SubResource("NoiseTexture2D_mwi1h")
 material = SubResource("StandardMaterial3D_48rxh")
 size = Vector2(40, 40)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y4uyo"]
-data = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, 20, -20, 0, -20, 20, 0, -20)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_t2nil"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pl088"]
 
@@ -125,6 +125,18 @@ events = [SubResource("InputEventKey_efj7d")]
 
 [node name="Map" type="Node3D"]
 
+[node name="Factions" type="Node" parent="."]
+
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Unit" parent="Units" instance=ExtResource("4_o6v8m")]
+
+[node name="Unit2" parent="Units" instance=ExtResource("4_o6v8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Unit3" parent="Units" instance=ExtResource("4_o6v8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
 [node name="Level Floor" type="StaticBody3D" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Level Floor"]
@@ -135,7 +147,7 @@ mesh = SubResource("PlaneMesh_13r0d")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level Floor"]
-shape = SubResource("ConcavePolygonShape3D_y4uyo")
+shape = SubResource("WorldBoundaryShape3D_t2nil")
 
 [node name="Global" type="Node" parent="."]
 
@@ -162,7 +174,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("3_vm6ea")
+metadata/_edit_use_anchors_ = true
 
 [node name="Resources" type="HBoxContainer" parent="UI"]
 layout_mode = 1

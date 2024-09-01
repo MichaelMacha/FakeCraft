@@ -3,6 +3,8 @@ extends Camera3D
 @export var speed := 1.0
 @export var control_bounds := 0.1
 
+@onready var ui: Control = $"../../UI"
+
 var go_west := false
 var go_east := false
 var go_north := false
