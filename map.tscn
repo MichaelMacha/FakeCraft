@@ -300,51 +300,61 @@ custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_ry66c")
 text = "TL"
+expand_icon = true
 
 [node name="ButtonTop" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_28edx")
 text = "T"
+expand_icon = true
 
 [node name="ButtonTopRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_csdhb")
 text = "TR"
+expand_icon = true
 
 [node name="ButtonLeft" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_ljy4q")
 text = "L"
+expand_icon = true
 
 [node name="ButtonCenter" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_pka3h")
 text = "C"
+expand_icon = true
 
 [node name="ButtonRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_7odp4")
 text = "R"
+expand_icon = true
 
 [node name="ButtonBottomLeft" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_j0asl")
 text = "BL"
+expand_icon = true
 
 [node name="ButtonBottom" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_pn8x5")
 text = "B"
+expand_icon = true
 
 [node name="ButtonBottomRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_w3cex")
-text = "BR"
+text = "3
+"
+expand_icon = true

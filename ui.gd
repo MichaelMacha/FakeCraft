@@ -19,12 +19,13 @@ const RAY_LENGTH = 1000.0
 @onready var camera_3d: Camera3D = $"../Global/Camera3D"
 @onready var space_state := map.get_world_3d().direct_space_state
 @onready var units: Node3D = $"../Units"
+@onready var buttons: GridContainer = $HUD/HBoxContainer/Options
 
 var mouse_down_time : float
 var drag_start : Vector3
 var drag_end : Vector3
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if update_frame == Engine.get_process_frames():
 		update_ui()
 
@@ -138,6 +139,50 @@ func update_ui() -> void:
 		#TODO: Iterate over all locations
 		#	Find matching control button and place its graphic
 		#	Associate a lambda from ControlButton with the button press
+		
+		#PASS 1: Works, but too dirty
+		#for location in ControlButton.ButtonLocation.keys():
+			##TODO: The control iteration should probably be its own function,
+			## or at least a lambda
+			#for control in controls.get_children():
+				#if control.button_location == ControlButton.ButtonLocation[location]:
+					#var button := \
+						#buttons.get_child(Manager.button_order.find(
+							#ControlButton.ButtonLocation[location])
+							#)
+					#button.icon = control.graphic
+					#print(control, ": ", control.button_location)
+		
+		#PASS 2: Keep modular
+		var find_control := func(location : ControlButton.ButtonLocation) -> ControlButton:
+			var acceptable : Array = \
+				controls.get_children().filter(
+					func(control): return control.button_location == location
+					)
+			
+			if not acceptable.is_empty():
+				return acceptable.front()
+			return null
+		
+		for index in buttons.get_child_count():
+			var button_loc : ControlButton.ButtonLocation = \
+				ControlButton.ButtonLocation.values()[index]
+			var button : Button = buttons.get_child(index)
+			var control : ControlButton = find_control.call(button_loc)
+			
+			if control:
+				button.icon = control.graphic
+				button.text = ""
+				#TODO: connect button.pressed to control lambda
+				button.pressed.connect(control.action)
+			else:
+				button.icon = null
+				button.text = ""
+				
+				#Disconnect all associated actions
+				for callable in button.pressed.get_connections():
+					button.pressed.disconnect(callable)
+		
 	
 
 func get_selection_priority() -> Entity:

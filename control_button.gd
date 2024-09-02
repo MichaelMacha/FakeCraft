@@ -14,3 +14,4 @@ enum ButtonLocation {
 
 @export var button_location : ButtonLocation = ButtonLocation.TOP_LEFT
 @export var graphic : Texture2D
+@export var action : Callable

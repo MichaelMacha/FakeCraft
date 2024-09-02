@@ -34,7 +34,7 @@ func dequeue() -> Vector3:
 	return move_queue.pop_front()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# Do not query when navigation map is unbaked
 	if NavigationServer3D.map_get_iteration_id(navagent.get_navigation_map()) == 0:
 		return
