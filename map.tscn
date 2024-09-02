@@ -295,57 +295,56 @@ texture = SubResource("PlaceholderTexture2D_s72gl")
 layout_mode = 2
 columns = 3
 
-[node name="Button7" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonTopLeft" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_ry66c")
-text = "7"
+text = "TL"
 
-[node name="Button8" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonTop" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_28edx")
-text = "8"
+text = "T"
 
-[node name="Button9" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonTopRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_csdhb")
-text = "9"
+text = "TR"
 
-[node name="Button4" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonLeft" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_ljy4q")
-text = "4"
+text = "L"
 
-[node name="Button5" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonCenter" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_pka3h")
-text = "5"
+text = "C"
 
-[node name="Button6" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_7odp4")
-text = "6"
+text = "R"
 
-[node name="Button1" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonBottomLeft" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_j0asl")
-text = "1"
+text = "BL"
 
-[node name="Button2" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonBottom" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_pn8x5")
-text = "2"
+text = "B"
 
-[node name="Button3" type="Button" parent="UI/HUD/HBoxContainer/Options"]
+[node name="ButtonBottomRight" type="Button" parent="UI/HUD/HBoxContainer/Options"]
 custom_minimum_size = Vector2(83, 83)
 layout_mode = 2
 shortcut = SubResource("Shortcut_w3cex")
-text = "3
-"
+text = "BR"

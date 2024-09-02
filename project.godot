@@ -15,6 +15,14 @@ run/main_scene="res://map.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Manager="*res://manager.gd"
+
+[editor]
+
+movie_writer/movie_file="/home/michael/Desktop/fakecraft.avi"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/interpolated_camera_3d/plugin.cfg")

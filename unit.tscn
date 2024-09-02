@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://lhvj5hnos8l4"]
+[gd_scene load_steps=7 format=3 uid="uid://lhvj5hnos8l4"]
 
 [ext_resource type="Script" path="res://unit.gd" id="1_ahi1y"]
 [ext_resource type="PackedScene" uid="uid://b0ybihm5n4b5p" path="res://glow ring.tscn" id="2_5gjeh"]
+[ext_resource type="Script" path="res://walk_action.gd" id="2_hvjny"]
+[ext_resource type="Texture2D" uid="uid://bg5lwd43ml6iq" path="res://graphics/Controls/walk_icon.png" id="3_gm0or"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ju7t"]
 
@@ -11,6 +13,12 @@
 input_capture_on_drag = true
 script = ExtResource("1_ahi1y")
 selection_glow = NodePath("disc")
+
+[node name="Controls" type="Node" parent="."]
+
+[node name="WalkAction" type="Node" parent="Controls"]
+script = ExtResource("2_hvjny")
+graphic = ExtResource("3_gm0or")
 
 [node name="disc" parent="." instance=ExtResource("2_5gjeh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -24,4 +32,8 @@ mesh = SubResource("BoxMesh_8ju7t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_pyosb")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

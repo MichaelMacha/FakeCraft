@@ -9,12 +9,44 @@ All missions have a set of objectives which must be completed to win
     - Could hypothetically be "eliminate all non-allied factions"
 Mission objectives are always available in options menu
 Fog of war shows exposed area
+Right-click seems to do what's on button 7 (top-left)
 
 Overlay:
 Minimap in bottom right
 Entity options in bottom right
 Menu button next to Entity options
 Readout in bottom center
+
+X Plan: Have a global that keeps track of all common elements like the unit priority list, autoloaded at scene start
+    -- manager.gd as Manager
+
+Unit controls selection priority appears to be based on an internal list. Higher-queued units take priority over lower elements on the list.
+
+Proposal: Put actions in sub node, each controlled by its own script
+    Have these scripts be a subclass of "UnitControl" or something like that
+    Have each UnitControl keep a reference to its place in the 9-button overlay
+
+Unit control:
+    Right-click moves
+        Note: move is top-left command (button 7), possibly related
+        <<Not related; SCVs will mine minerals when right-clicked but won't when moved onto>>
+        Right-click perhaps has particular associations with an action depending on unit
+    Shift Right-click adds waypoints to a stack
+    Unit moves in its own manner toward that point
+
+    Mechanic Suggestion:
+        Keep queue of points to move to
+        Push point onto queue when moving
+            (Remember to implement behavior in button)
+        Right click to do button 7
+
+        _physics_process:
+            If no target point or target point empty:
+                When queue is not empty:
+                    Pop item off of queue into target point
+            Navigate to target point
+            Move along navigation path from NavAgent3D.
+
 
 Resources:
 Minerals:
@@ -50,7 +82,6 @@ Supply Depot provides population support
 Refinery abilities:
     Creates refined vespene (from limited raw vespene from source)
     Can hold one SCV at a time while gathering gas
-
 
 Identified units:
     SCV

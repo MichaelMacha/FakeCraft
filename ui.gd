@@ -24,6 +24,10 @@ var mouse_down_time : float
 var drag_start : Vector3
 var drag_end : Vector3
 
+func _physics_process(delta: float) -> void:
+	if update_frame == Engine.get_process_frames():
+		update_ui()
+
 func _process(_delta: float) -> void:
 	queue_redraw()
 
@@ -103,3 +107,51 @@ func _draw() -> void:
 			Rect2(new_origin, get_global_mouse_position() - new_origin),
 				Color.GREEN, false, 2.0
 			)
+
+var update_frame := 0
+
+## Receives signal triggering a UI update. The actual update happens in
+## _physics_process, as this is frequently emitted by every unit and to
+## do it here would be needlessly expensive.
+func _trigger_update_ui() -> void:
+	update_frame = Engine.get_process_frames()
+
+#TODO: Unit test with second unit
+func update_ui() -> void:
+	# Called at most once per physics frame, by design
+	
+	# Here, we need to get the unit type which is of highest priority with a
+	# basic sort
+	
+	var entity : Entity = get_selection_priority()
+	print("Selected entity: ", entity)
+	
+	if entity:
+		# We make certain enforced assumptions about entities.
+		# They should all have a Controls child node, which contains a list
+		# of ControlButtons.
+		assert(entity.has_node("Controls"))
+		
+		var controls := entity.get_node("Controls")
+		print("Controls: ", controls)
+		
+		#TODO: Iterate over all locations
+		#	Find matching control button and place its graphic
+		#	Associate a lambda from ControlButton with the button press
+	
+
+func get_selection_priority() -> Entity:
+	var selected : Array = units.get_children() \
+		.filter(func(child): return child.selected)
+	selected.sort_custom(
+			func(child1, child2):
+				var priority1 = Manager.unit_priority.find(child1)
+				var priority2 = Manager.unit_priority.find(child2)
+				return priority1 > priority2
+				)
+	
+	#NOTE: Should this be .front()?
+	if not selected.is_empty():
+		return selected.back()
+	else:
+		return null
