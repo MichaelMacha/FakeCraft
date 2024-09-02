@@ -136,24 +136,10 @@ func update_ui() -> void:
 		var controls := entity.get_node("Controls")
 		print("Controls: ", controls)
 		
-		#TODO: Iterate over all locations
+		#Iterate over all locations
 		#	Find matching control button and place its graphic
 		#	Associate a lambda from ControlButton with the button press
 		
-		#PASS 1: Works, but too dirty
-		#for location in ControlButton.ButtonLocation.keys():
-			##TODO: The control iteration should probably be its own function,
-			## or at least a lambda
-			#for control in controls.get_children():
-				#if control.button_location == ControlButton.ButtonLocation[location]:
-					#var button := \
-						#buttons.get_child(Manager.button_order.find(
-							#ControlButton.ButtonLocation[location])
-							#)
-					#button.icon = control.graphic
-					#print(control, ": ", control.button_location)
-		
-		#PASS 2: Keep modular
 		var find_control := func(location : ControlButton.ButtonLocation) -> ControlButton:
 			var acceptable : Array = \
 				controls.get_children().filter(
@@ -163,6 +149,10 @@ func update_ui() -> void:
 			if not acceptable.is_empty():
 				return acceptable.front()
 			return null
+		
+		var disconnect_all := func(sig : Signal):
+			for item in sig.get_connections():
+				sig.disconnect(item.callable)
 		
 		for index in buttons.get_child_count():
 			var button_loc : ControlButton.ButtonLocation = \
@@ -174,14 +164,14 @@ func update_ui() -> void:
 				button.icon = control.graphic
 				button.text = ""
 				#TODO: connect button.pressed to control lambda
+				disconnect_all.call(button.pressed)
 				button.pressed.connect(control.action)
 			else:
 				button.icon = null
 				button.text = ""
 				
 				#Disconnect all associated actions
-				for callable in button.pressed.get_connections():
-					button.pressed.disconnect(callable)
+				disconnect_all.call(button.pressed)
 		
 	
 
@@ -200,3 +190,10 @@ func get_selection_priority() -> Entity:
 		return selected.back()
 	else:
 		return null
+
+func selected_units() -> Array:
+	var selected := []
+	for unit in units.get_children():
+		if unit.selected:
+			selected.append(unit)
+	return selected

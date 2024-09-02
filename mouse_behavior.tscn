@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://var48o5v7a4b"]
+
+[ext_resource type="Script" path="res://mouse_behavior.gd" id="1_2lo0b"]
+[ext_resource type="PackedScene" uid="uid://b4nuoglp2gwl6" path="res://disc.glb" id="2_2cljv"]
+
+[node name="MouseBehavior" type="Node3D"]
+script = ExtResource("1_2lo0b")
+
+[node name="disc" parent="." instance=ExtResource("2_2cljv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

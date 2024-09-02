@@ -6,5 +6,4 @@ func _ready() -> void:
 	## Set the current action to walk. Walk behavior should alter the mouse
 	## cursor, then set the unit's target to whatever point is left-clicked on.
 	self.action = func():
-		
-		pass
+		$/root/Map/Mouse.switch_behavior($/root/Map/Mouse/WalkBehavior)

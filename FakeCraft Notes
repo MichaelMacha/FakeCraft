@@ -22,6 +22,10 @@ X Plan: Have a global that keeps track of all common elements like the unit prio
 
 Unit controls selection priority appears to be based on an internal list. Higher-queued units take priority over lower elements on the list.
 
+Plan: ControlButton actions can do a lot of things, but typically change the behavior of the interface anticipating more parameters for the action.
+    Modularize mouse behavior into its own node
+    On triggering an action like "Walk" or later "Attack", delegate to a different interface node
+
 Proposal: Put actions in sub node, each controlled by its own script
     Have these scripts be a subclass of "UnitControl" or something like that
     Have each UnitControl keep a reference to its place in the 9-button overlay

@@ -23,6 +23,10 @@ var move_queue : Array[Vector3] \
 
 @onready var ui : UI = $"/root/Map/UI"
 
+## Replaces the whole move queue with a single point
+func go(point : Vector3) -> void:
+	move_queue = []
+	navagent.target_position = point
 
 ## Enqueues a point onto the move queue, as an additional destination.
 func enqueue(point : Vector3) -> void:

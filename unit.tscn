@@ -10,6 +10,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pyosb"]
 
 [node name="Unit" type="CharacterBody3D" node_paths=PackedStringArray("selection_glow")]
+collision_mask = 0
 input_capture_on_drag = true
 script = ExtResource("1_ahi1y")
 selection_glow = NodePath("disc")

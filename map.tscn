@@ -1,7 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://ck4jnk1x4gnvi"]
+[gd_scene load_steps=40 format=3 uid="uid://ck4jnk1x4gnvi"]
 
 [ext_resource type="Script" path="res://addons/interpolated_camera_3d/interpolated_camera_3d.gd" id="1_3cjf3"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="1_a503m"]
+[ext_resource type="Script" path="res://mouse.gd" id="1_dekkv"]
+[ext_resource type="PackedScene" uid="uid://var48o5v7a4b" path="res://mouse_behavior.tscn" id="2_ywiym"]
+[ext_resource type="PackedScene" uid="uid://dvigv751thglq" path="res://walk_behavior.tscn" id="3_77fxa"]
 [ext_resource type="Script" path="res://ui.gd" id="3_vm6ea"]
 [ext_resource type="PackedScene" uid="uid://lhvj5hnos8l4" path="res://unit.tscn" id="4_o6v8m"]
 
@@ -127,6 +130,14 @@ events = [SubResource("InputEventKey_efj7d")]
 
 [node name="Factions" type="Node" parent="."]
 
+[node name="Mouse" type="Node3D" parent="."]
+script = ExtResource("1_dekkv")
+
+[node name="MouseBehavior" parent="Mouse" instance=ExtResource("2_ywiym")]
+
+[node name="WalkBehavior" parent="Mouse" instance=ExtResource("3_77fxa")]
+visible = false
+
 [node name="Units" type="Node3D" parent="."]
 
 [node name="Unit" parent="Units" instance=ExtResource("4_o6v8m")]
@@ -141,6 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
 [node name="Level Floor" type="StaticBody3D" parent="."]
+collision_layer = 3
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Level Floor"]
 navigation_mesh = SubResource("NavigationMesh_5ah6r")
