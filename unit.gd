@@ -16,12 +16,23 @@ class_name Unit extends Entity
 ## Identifies the unit type to the game manager
 @export var unit_type : Manager.UnitType = Manager.UnitType.GENERIC_UNIT
 
-var move_queue : Array[Vector3] \
+## Action to perform when unit has priority on right-click
+@export var right_behavior : MouseBehavior
+
+var move_queue : Array[Vector3] #\
 	#Debug list:
-	= [Vector3(12.0, 0.0, 12.0), Vector3(12.0, 0.0, -12.0), Vector3(0.0, 0.0, 0.0)]
+	#= [Vector3(12.0, 0.0, 12.0), Vector3(12.0, 0.0, -12.0), Vector3(0.0, 0.0, 0.0)]
 
 
 @onready var ui : UI = $"/root/Map/UI"
+
+
+func _ready() -> void:
+	#do universals
+	super._ready()
+	
+	#TODO: This should be configurable per unit
+	self.right_behavior = $/root/Map/Mouse/WalkBehavior
 
 ## Replaces the whole move queue with a single point
 func go(point : Vector3) -> void:

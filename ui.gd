@@ -27,6 +27,7 @@ var drag_end : Vector3
 
 func _physics_process(_delta: float) -> void:
 	if update_frame == Engine.get_process_frames():
+		print("Update UI")
 		update_ui()
 
 func _process(_delta: float) -> void:
@@ -47,6 +48,13 @@ func _input(event: InputEvent) -> void:
 				
 				#After click is handled, assume a drag.
 				state = SelectState.DRAG
+			elif event.is_action("act") and event.pressed:
+				#Get each selected unit
+				for unit in units.get_children() \
+					.filter(func(unit): return unit.selected):
+					var loc = pick(event.position)
+					if not loc.is_empty():
+						unit.right_behavior.handle_input(event, loc.position)
 		SelectState.DRAG:
 			if event.is_action("select") and not event.pressed:
 				var result = pick(event.position)
@@ -125,7 +133,6 @@ func update_ui() -> void:
 	# basic sort
 	
 	var entity : Entity = get_selection_priority()
-	print("Selected entity: ", entity)
 	
 	if entity:
 		# We make certain enforced assumptions about entities.
@@ -134,7 +141,6 @@ func update_ui() -> void:
 		assert(entity.has_node("Controls"))
 		
 		var controls := entity.get_node("Controls")
-		print("Controls: ", controls)
 		
 		#Iterate over all locations
 		#	Find matching control button and place its graphic
@@ -155,6 +161,7 @@ func update_ui() -> void:
 				sig.disconnect(item.callable)
 		
 		for index in buttons.get_child_count():
+			print("Index: ", index)
 			var button_loc : ControlButton.ButtonLocation = \
 				ControlButton.ButtonLocation.values()[index]
 			var button : Button = buttons.get_child(index)

@@ -14,6 +14,4 @@ func handle_input(event : InputEvent, projection : Vector3) -> void:
 		else:
 			unit.go(projection)
 		
-	print(ui.selected_units())
-	
 	$"..".switch_behavior($"../MouseBehavior")
