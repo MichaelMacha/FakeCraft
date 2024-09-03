@@ -133,8 +133,11 @@ events = [SubResource("InputEventKey_efj7d")]
 [node name="Factions" type="Node" parent="."]
 script = ExtResource("1_g7o8u")
 
-[node name="Faction" parent="Factions" node_paths=PackedStringArray("units") instance=ExtResource("1_5l6ll")]
+[node name="Faction1" parent="Factions" node_paths=PackedStringArray("units") instance=ExtResource("1_5l6ll")]
 units = [NodePath("../../Units/Unit"), NodePath("../../Units/Unit2"), NodePath("../../Units/Unit3"), NodePath("../../Units/Unit4")]
+
+[node name="Faction2" parent="Factions" node_paths=PackedStringArray("units") instance=ExtResource("1_5l6ll")]
+units = [NodePath("../../Units/EnemyUnit5"), NodePath("../../Units/EnemyUnit6")]
 
 [node name="Mouse" type="Node3D" parent="."]
 script = ExtResource("1_dekkv")
@@ -148,34 +151,20 @@ visible = false
 
 [node name="Unit" parent="Units" instance=ExtResource("4_o6v8m")]
 
-[node name="Timer" type="Timer" parent="Units/Unit"]
-wait_time = 3.0
-one_shot = true
-autostart = true
-
 [node name="Unit2" parent="Units" instance=ExtResource("4_o6v8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="Timer" type="Timer" parent="Units/Unit2"]
-wait_time = 4.0
-one_shot = true
-autostart = true
 
 [node name="Unit3" parent="Units" instance=ExtResource("4_o6v8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
 
-[node name="Timer" type="Timer" parent="Units/Unit3"]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
 [node name="Unit4" parent="Units" instance=ExtResource("4_o6v8m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
 
-[node name="Timer" type="Timer" parent="Units/Unit4"]
-wait_time = 6.0
-one_shot = true
-autostart = true
+[node name="EnemyUnit6" parent="Units" instance=ExtResource("4_o6v8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+
+[node name="EnemyUnit5" parent="Units" instance=ExtResource("4_o6v8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
 
 [node name="Level Floor" type="StaticBody3D" parent="."]
 collision_layer = 3
@@ -396,8 +385,3 @@ shortcut = SubResource("Shortcut_w3cex")
 text = "3
 "
 expand_icon = true
-
-[connection signal="timeout" from="Units/Unit/Timer" to="Units/Unit" method="kill_unit"]
-[connection signal="timeout" from="Units/Unit2/Timer" to="Units/Unit2" method="kill_unit"]
-[connection signal="timeout" from="Units/Unit3/Timer" to="Units/Unit3" method="kill_unit"]
-[connection signal="timeout" from="Units/Unit4/Timer" to="Units/Unit4" method="kill_unit"]

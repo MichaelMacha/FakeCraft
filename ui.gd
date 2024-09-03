@@ -21,13 +21,15 @@ const RAY_LENGTH = 1000.0
 @onready var units: Node3D = $"../Units"
 @onready var buttons: GridContainer = $HUD/HBoxContainer/Options
 
+#TODO: This should be declared by a child node expressing local control
+@onready var home_faction : Faction = $"../Factions/Faction1"
+
 var mouse_down_time : float
 var drag_start : Vector3
 var drag_end : Vector3
 
 func _physics_process(_delta: float) -> void:
 	if update_frame == Engine.get_process_frames():
-		print("Update UI")
 		update_ui()
 
 func _process(_delta: float) -> void:
@@ -42,7 +44,8 @@ func _input(event: InputEvent) -> void:
 				#First check for a click.
 				var result = pick(event.position)
 				
-				#Assume we always hit something, as we have a WorldBoundary as a floor, and can't tilt the camera up enough to expose the sky.
+				#Assume we always hit something, as we have a WorldBoundary as
+				#a floor, and can't tilt the camera up enough to expose the sky.
 				drag_start = result.position
 				mouse_down_time = seconds
 				
@@ -51,7 +54,11 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action("act") and event.pressed:
 				#Get each selected unit
 				for unit in units.get_children() \
-					.filter(func(unit): return unit.selected):
+					#Ensure that we own this unit and can direct it
+					.filter(func(unit): return home_faction.units.has(unit)) \
+					#Ensure that this unit is selected
+					.filter(func(unit): return unit.selected):# \
+					
 					var loc = pick(event.position)
 					if not loc.is_empty():
 						unit.right_behavior.handle_input(event, loc.position)
@@ -63,7 +70,6 @@ func _input(event: InputEvent) -> void:
 				
 				if seconds - mouse_down_time < click_time and \
 					result.collider is Entity:
-					#TODO: qualify entity (make sure it can be selected) first
 					
 					if Input.is_action_pressed("append"):
 						append([result.collider])
@@ -161,7 +167,6 @@ func update_ui() -> void:
 				sig.disconnect(item.callable)
 		
 		for index in buttons.get_child_count():
-			print("Index: ", index)
 			var button_loc : ControlButton.ButtonLocation = \
 				ControlButton.ButtonLocation.values()[index]
 			var button : Button = buttons.get_child(index)
@@ -184,7 +189,9 @@ func update_ui() -> void:
 
 func get_selection_priority() -> Entity:
 	var selected : Array = units.get_children() \
+		.filter(func(unit): return home_faction.units.has(unit)) \
 		.filter(func(child): return child.selected)
+	
 	selected.sort_custom(
 			func(child1, child2):
 				var priority1 = Manager.unit_priority.find(child1)
@@ -198,9 +205,15 @@ func get_selection_priority() -> Entity:
 	else:
 		return null
 
+## Return all selected units
 func selected_units() -> Array:
 	var selected := []
 	for unit in units.get_children():
 		if unit.selected:
 			selected.append(unit)
 	return selected
+
+## Return all selected units under our control
+func selected_home_units() -> Array:
+	var selected := selected_units()
+	return selected.filter(func(u) : return home_faction.units.has(u))
