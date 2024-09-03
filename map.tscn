@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ck4jnk1x4gnvi"]
+[gd_scene load_steps=43 format=3 uid="uid://ck4jnk1x4gnvi"]
 
 [ext_resource type="Script" path="res://addons/interpolated_camera_3d/interpolated_camera_3d.gd" id="1_3cjf3"]
 [ext_resource type="PackedScene" uid="uid://cr6iqt6jwce6w" path="res://faction.tscn" id="1_5l6ll"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dvigv751thglq" path="res://walk_behavior.tscn" id="3_77fxa"]
 [ext_resource type="Script" path="res://ui.gd" id="3_vm6ea"]
 [ext_resource type="PackedScene" uid="uid://lhvj5hnos8l4" path="res://unit.tscn" id="4_o6v8m"]
+[ext_resource type="PackedScene" uid="uid://f26u1i44nhyr" path="res://attack_behavior.tscn" id="6_kr6qv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_5ah6r"]
 vertices = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, -20)
@@ -142,9 +143,12 @@ units = [NodePath("../../Units/EnemyUnit5"), NodePath("../../Units/EnemyUnit6")]
 [node name="Mouse" type="Node3D" parent="."]
 script = ExtResource("1_dekkv")
 
-[node name="MouseBehavior" parent="Mouse" instance=ExtResource("2_ywiym")]
+[node name="MouseCursor" parent="Mouse" instance=ExtResource("2_ywiym")]
 
-[node name="WalkBehavior" parent="Mouse" instance=ExtResource("3_77fxa")]
+[node name="WalkCursor" parent="Mouse" instance=ExtResource("3_77fxa")]
+visible = false
+
+[node name="AttackCursor" parent="Mouse" instance=ExtResource("6_kr6qv")]
 visible = false
 
 [node name="Units" type="Node3D" parent="."]

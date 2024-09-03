@@ -17,21 +17,24 @@ class_name Unit extends Entity
 @export var unit_type : Manager.UnitType = Manager.UnitType.GENERIC_UNIT
 
 ## Action to perform when unit has priority on right-click
-@export var right_behavior : MouseBehavior
+@export var right_cursor : MouseCursor
 
+#TODO: This should be a full behavior queue, not just a movement queue. What if
+#we are moving in to attack?
 var move_queue : Array[Vector3] #\
 	#Debug list:
 	#= [Vector3(12.0, 0.0, 12.0), Vector3(12.0, 0.0, -12.0), Vector3(0.0, 0.0, 0.0)]
 
 @onready var ui : UI = $"/root/Map/UI"
 
+@export var ignoring_fire := false
 
 func _ready() -> void:
 	#do universals
 	super._ready()
 	
 	#TODO: This should be configurable per unit
-	self.right_behavior = $/root/Map/Mouse/WalkBehavior
+	self.right_cursor = $/root/Map/Mouse/WalkCursor
 
 ## Replaces the whole move queue with a single point
 func go(point : Vector3) -> void:

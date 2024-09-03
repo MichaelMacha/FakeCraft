@@ -61,7 +61,7 @@ func _input(event: InputEvent) -> void:
 					
 					var loc = pick(event.position)
 					if not loc.is_empty():
-						unit.right_behavior.handle_input(event, loc.position)
+						unit.right_cursor.handle_input(event, loc)
 		SelectState.DRAG:
 			if event.is_action("select") and not event.pressed:
 				var result = pick(event.position)

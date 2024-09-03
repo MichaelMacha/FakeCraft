@@ -1,10 +1,12 @@
-class_name WalkBehavior extends MouseBehavior
+class_name WalkCursor extends MouseCursor
 
 @onready var ui: UI = $"../../UI"
 
-func handle_input(event : InputEvent, projection : Vector3) -> void:
+func handle_input(event : InputEvent, result : Dictionary) -> void:
 	#Do universals
-	super.handle_input(event, projection)
+	super.handle_input(event, result)
+	
+	var projection = result.position
 	
 	#Act
 	for unit in ui.selected_home_units():
@@ -13,4 +15,4 @@ func handle_input(event : InputEvent, projection : Vector3) -> void:
 		else:
 			unit.go(projection)
 		
-	$"..".switch_behavior($"../MouseBehavior")
+	$"..".switch_cursor($"../MouseCursor")

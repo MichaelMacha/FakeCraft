@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://lhvj5hnos8l4"]
+[gd_scene load_steps=9 format=3 uid="uid://lhvj5hnos8l4"]
 
 [ext_resource type="Script" path="res://unit.gd" id="1_ahi1y"]
 [ext_resource type="PackedScene" uid="uid://b0ybihm5n4b5p" path="res://glow ring.tscn" id="2_5gjeh"]
 [ext_resource type="Script" path="res://walk_action.gd" id="2_hvjny"]
 [ext_resource type="Texture2D" uid="uid://bg5lwd43ml6iq" path="res://graphics/Controls/walk_icon.png" id="3_gm0or"]
+[ext_resource type="Script" path="res://attack_action.gd" id="4_lmh58"]
+[ext_resource type="Texture2D" uid="uid://dl72s1b4ylhoq" path="res://graphics/Controls/attack_icon.png" id="5_y35od"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ju7t"]
 
@@ -20,6 +22,11 @@ selection_glow = NodePath("disc")
 [node name="WalkAction" type="Node" parent="Controls"]
 script = ExtResource("2_hvjny")
 graphic = ExtResource("3_gm0or")
+
+[node name="AttackAction" type="Node" parent="Controls"]
+script = ExtResource("4_lmh58")
+button_location = 2
+graphic = ExtResource("5_y35od")
 
 [node name="disc" parent="." instance=ExtResource("2_5gjeh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

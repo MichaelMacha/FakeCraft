@@ -1,6 +1,6 @@
-class_name MouseBehavior extends Node3D
+class_name MouseCursor extends Node3D
 
-func handle_input(event : InputEvent, projection : Vector3) -> void:
+func handle_input(event : InputEvent, result : Dictionary) -> void:
 	#print(self, " handling ", event)
 	pass
 	

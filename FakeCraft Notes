@@ -26,6 +26,8 @@ Factions are listed under the Factions node as child nodes.
         This should be deferred to for decision making
     Faction should be polled for strategic goals, units should only make local and tactical decisions
 
+    StarCraft did not allow multiple competing factions to be selected simultaneously.
+
 X Plan: Have a global that keeps track of all common elements like the unit priority list, autoloaded at scene start
     -- manager.gd as Manager
 
@@ -67,6 +69,9 @@ Unit control:
             Navigate to target point
             Move along navigation path from NavAgent3D.
 
+    Mechanic Refinement:
+        Keep queue of actions, including walking actions to specific target points
+        Follow these actions from the queue, and subsume the behavior of walking to sequential points.
 
 Resources:
 Minerals:
@@ -153,3 +158,14 @@ See if requirements are met
 Procedure suspicions:
 Everything that can flag an objective emits a signal
 Signal updates record of mission state and runs success check
+
+Next step:
+    We're misnaming things.
+
+    This is very much an MVC-style architecture; our cursor is being referred to as a "behavior" and, unless we're specifically talking about the mouse and using the term in a very broad sense, that's inappropriate.
+    Action should be the button behavior.
+    /Cursor/ should be the mouse display name.
+    /Behavior/ should be the actual carrying out of the command.
+    Refactor MouseBehavior into MouseCursor.
+
+Issue detected: Shift+boxing foreign units should not be allowed while home units are selected
