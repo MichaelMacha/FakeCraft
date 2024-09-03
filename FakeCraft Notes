@@ -17,6 +17,15 @@ Entity options in bottom right
 Menu button next to Entity options
 Readout in bottom center
 
+Factions are listed under the Factions node as child nodes.
+    Each faction should have a control subclass:
+        Local (keyboard/mouse/gamepad etc.)
+        SI
+        Network
+
+        This should be deferred to for decision making
+    Faction should be polled for strategic goals, units should only make local and tactical decisions
+
 X Plan: Have a global that keeps track of all common elements like the unit priority list, autoloaded at scene start
     -- manager.gd as Manager
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://ck4jnk1x4gnvi"]
+[gd_scene load_steps=41 format=3 uid="uid://ck4jnk1x4gnvi"]
 
 [ext_resource type="Script" path="res://addons/interpolated_camera_3d/interpolated_camera_3d.gd" id="1_3cjf3"]
+[ext_resource type="PackedScene" uid="uid://cr6iqt6jwce6w" path="res://faction.tscn" id="1_5l6ll"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="1_a503m"]
 [ext_resource type="Script" path="res://mouse.gd" id="1_dekkv"]
 [ext_resource type="PackedScene" uid="uid://var48o5v7a4b" path="res://mouse_behavior.tscn" id="2_ywiym"]
@@ -129,6 +130,8 @@ events = [SubResource("InputEventKey_efj7d")]
 [node name="Map" type="Node3D"]
 
 [node name="Factions" type="Node" parent="."]
+
+[node name="Faction" parent="Factions" instance=ExtResource("1_5l6ll")]
 
 [node name="Mouse" type="Node3D" parent="."]
 script = ExtResource("1_dekkv")
