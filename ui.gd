@@ -149,50 +149,60 @@ func update_ui() -> void:
 	
 	var entity : Entity = get_selection_priority()
 	
+	var disconnect_all := func(sig : Signal):
+		for item in sig.get_connections():
+			sig.disconnect(item.callable)
+	
+	#TODO: This should also check buildings
 	if entity:
-		# We make certain enforced assumptions about entities.
-		# They should all have a Controls child node, which contains a list
-		# of ControlButtons.
-		assert(entity.has_node("Controls"))
-		
-		var controls := entity.get_node("Controls")
-		
-		#Iterate over all locations
-		#	Find matching control button and place its graphic
-		#	Associate a lambda from ControlButton with the button press
-		
-		var find_control := func(location : ControlButton.ButtonLocation) -> ControlButton:
-			var acceptable : Array = \
-				controls.get_children().filter(
-					func(control): return control.button_location == location
-					)
+		if home_faction.units.has(entity):
+			# We make certain enforced assumptions about entities.
+			# They should all have a Controls child node, which contains a list
+			# of ControlButtons.
+			assert(entity.has_node("Controls"))
 			
-			if not acceptable.is_empty():
-				return acceptable.front()
-			return null
-		
-		var disconnect_all := func(sig : Signal):
-			for item in sig.get_connections():
-				sig.disconnect(item.callable)
-		
-		for index in buttons.get_child_count():
-			var button_loc : ControlButton.ButtonLocation = \
-				ControlButton.ButtonLocation.values()[index]
-			var button : Button = buttons.get_child(index)
-			var control : ControlButton = find_control.call(button_loc)
+			var controls := entity.get_node("Controls")
 			
-			if control:
-				button.icon = control.graphic
-				button.text = ""
-				#TODO: connect button.pressed to control lambda
-				disconnect_all.call(button.pressed)
-				button.pressed.connect(control.action)
-			else:
-				button.icon = null
-				button.text = ""
+			#Iterate over all locations
+			#	Find matching control button and place its graphic
+			#	Associate a lambda from ControlButton with the button press
+			
+			var find_control := func(location : ControlButton.ButtonLocation) -> ControlButton:
+				var acceptable : Array = \
+					controls.get_children().filter(
+						func(control): return control.button_location == location
+						)
 				
-				#Disconnect all associated actions
-				disconnect_all.call(button.pressed)
+				if not acceptable.is_empty():
+					return acceptable.front()
+				return null
+			
+			for index in buttons.get_child_count():
+				var button_loc : ControlButton.ButtonLocation = \
+					ControlButton.ButtonLocation.values()[index]
+				var button : Button = buttons.get_child(index)
+				var control : ControlButton = find_control.call(button_loc)
+				
+				if control:
+					button.icon = control.graphic
+					button.text = ""
+					#TODO: connect button.pressed to control lambda
+					disconnect_all.call(button.pressed)
+					button.pressed.connect(control.action)
+				else:
+					button.icon = null
+					button.text = ""
+					
+					#Disconnect all associated actions
+					disconnect_all.call(button.pressed)
+	else:
+		print("Foreign unit detected")
+		#Replace all buttons with their default
+		for index in buttons.get_child_count():
+			var button := buttons.get_child(index)
+			button.icon = null
+			button.text = ""
+			disconnect_all.call(button.pressed)
 		
 	
 
