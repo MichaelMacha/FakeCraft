@@ -23,7 +23,6 @@ var move_queue : Array[Vector3] #\
 	#Debug list:
 	#= [Vector3(12.0, 0.0, 12.0), Vector3(12.0, 0.0, -12.0), Vector3(0.0, 0.0, 0.0)]
 
-
 @onready var ui : UI = $"/root/Map/UI"
 
 
@@ -72,3 +71,7 @@ func _physics_process(_delta: float) -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = safe_velocity
 	move_and_slide()
+
+func kill_unit() -> void:
+	entity_destroyed.emit(self)
+	queue_free()

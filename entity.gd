@@ -3,6 +3,7 @@
 class_name Entity extends CharacterBody3D
 
 signal request_update_ui
+signal entity_destroyed(entity : Entity)
 
 @export var selection_glow : Node3D
 
@@ -19,3 +20,4 @@ signal request_update_ui
 
 func _ready() -> void:
 	request_update_ui.connect($/root/Map/UI._trigger_update_ui)
+	entity_destroyed.connect($/root/Map/Factions.remove_entity)

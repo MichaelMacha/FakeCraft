@@ -22,7 +22,7 @@ enum MissionStatus {
 }
 
 ## Preconditions for success; if any of these return false, mission is failed
-var preconditions : Array[Callable] = []
+var preconditions : Array[Callable] = [func(): return units.size() > 0]
 
 ## Conditions for victory; not having these return true means that victory is
 ## still TBD; but if they all return true, mission is a success
@@ -32,16 +32,12 @@ var conditions : Array[Callable] = [func(): return false]
 
 var status : MissionStatus = MissionStatus.TO_BE_DETERMINED:
 	get():
-		print(preconditions.all(func(f): return f.call()))
-		#print(conditions.reduce(func(r, c): return c.call() and r))
-		#if not preconditions.reduce(func(r, c): return c.call() and r):
-			#return MissionStatus.FAILURE
 		if not preconditions.all(func(f): return f.call()):
 			return MissionStatus.FAILURE
 			
-		#if conditions.reduce(func(r, c): return c.call() and r):
 		if conditions.all(func(f): return f.call()):
 			return MissionStatus.SUCCESS
+		
 		return MissionStatus.TO_BE_DETERMINED
 
 func has_entity(entity : Entity) -> bool:
@@ -49,3 +45,9 @@ func has_entity(entity : Entity) -> bool:
 
 func _ready() -> void:
 	print(MissionStatus.keys()[status])
+
+func update_unit_list() -> void:
+	for unit in units:
+		print(is_instance_valid(unit), " and ", unit.is_inside_tree())
+	
+	units = units.filter(func(u : Node): return is_instance_valid(u) and u.is_inside_tree())
