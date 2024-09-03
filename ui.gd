@@ -85,11 +85,20 @@ func _input(event: InputEvent) -> void:
 						if box.has_point(unit.global_position):
 							selected.append(unit)
 					
+					#Ensure (by old StarCraft 1 specifications) that
+					#if we have any of our home units selected, then only
+					#our home units are selected.
+					if selected.any(func(u): return home_faction.units.has(u)):
+						selected = selected.filter(func(u): return home_faction.units.has(u))
+					#Otherwise, for now, assume any combination of other units
+					#may be selected if none of them are ours.
+					
 					if not selected.is_empty():
 						if Input.is_action_pressed("append"):
 							append(selected)
 						else:
 							select(selected)
+					
 				
 				state = SelectState.CLICK
 
