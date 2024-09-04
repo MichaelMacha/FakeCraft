@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://f26u1i44nhyr"]
 
-[ext_resource type="Script" path="res://attack_behavior.gd" id="1_h8jys"]
+[ext_resource type="Script" path="res://attack_cursor.gd" id="1_h8jys"]
 [ext_resource type="PackedScene" uid="uid://bcgttm88bjh6q" path="res://X.glb" id="2_3dnaa"]
 
 [node name="AttackBehavior" type="Node3D"]

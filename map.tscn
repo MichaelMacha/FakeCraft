@@ -5,11 +5,11 @@
 [ext_resource type="Script" path="res://camera_3d.gd" id="1_a503m"]
 [ext_resource type="Script" path="res://mouse.gd" id="1_dekkv"]
 [ext_resource type="Script" path="res://all_factions.gd" id="1_g7o8u"]
-[ext_resource type="PackedScene" uid="uid://var48o5v7a4b" path="res://mouse_behavior.tscn" id="2_ywiym"]
-[ext_resource type="PackedScene" uid="uid://dvigv751thglq" path="res://walk_behavior.tscn" id="3_77fxa"]
+[ext_resource type="PackedScene" uid="uid://var48o5v7a4b" path="res://mouse_cursor.tscn" id="2_ywiym"]
+[ext_resource type="PackedScene" uid="uid://dvigv751thglq" path="res://walk_cursor.tscn" id="3_77fxa"]
 [ext_resource type="Script" path="res://ui.gd" id="3_vm6ea"]
 [ext_resource type="PackedScene" uid="uid://lhvj5hnos8l4" path="res://unit.tscn" id="4_o6v8m"]
-[ext_resource type="PackedScene" uid="uid://f26u1i44nhyr" path="res://attack_behavior.tscn" id="6_kr6qv"]
+[ext_resource type="PackedScene" uid="uid://f26u1i44nhyr" path="res://attack_cursor.tscn" id="6_kr6qv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_5ah6r"]
 vertices = PackedVector3Array(20, 0, 20, -20, 0, 20, 20, 0, -20, -20, 0, -20)
