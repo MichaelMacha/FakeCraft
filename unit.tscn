@@ -17,6 +17,8 @@ input_capture_on_drag = true
 script = ExtResource("1_ahi1y")
 selection_glow = NodePath("disc")
 
+[node name="Behavior" type="Node" parent="."]
+
 [node name="Controls" type="Node" parent="."]
 
 [node name="WalkAction" type="Node" parent="Controls"]
